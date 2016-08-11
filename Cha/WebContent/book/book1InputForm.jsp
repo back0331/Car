@@ -11,6 +11,7 @@
 </head>
 <script>
 	$(function() {
+		
 		$( ".testDatepicker" ).datepicker({
 	        showOn: "both",
 	        buttonImage: "../image/calIcon.png",
@@ -21,28 +22,60 @@
 	        dateFormat: "yymmdd",
 	        minDate: "-0D"
 		});
-		
-		//지점 선택시 지도에 표시
-		$("#agency").change(function(){
-			$("#loc").attr("value",$(":selected").attr("title"));
-			//alert($("#loc").attr("value"));
-			map();
-		});
-		
-		// 반납일자가 대여일자보다 뒤면 에러
-		$("#return_date").change(function(){
-			//alert($("#return_date").val());
-			
-			if(($("#rent_date").val())>($("#return_date").val())){
-				alert("반납일자를 다시 확인해주세요.");
-				return;
-			} else if(($("#rent_date").val())==($("#return_date").val())){
-				alert("대여는 1일 이상 신청가능합니다. 다시 선택해주세요.")
-				return;
-			}
-			
-		});
 	});
+	
+	/* function selectAgency(){
+		alert("selectAgency시작");
+		//지점 선택시 해당 경도위도 값 받아옴
+		var loc1 = $(":selected","#agency").attr("title");
+		var loc2 = $(":selected","#agency").attr("id");
+		
+		$("#loc1").val(loc1);
+		$("#loc2").val(loc2);
+		//alert(loc);
+		
+	}  */
+	
+	function map(){
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+		mapOption = {
+			center: new daum.maps.LatLng(37.522187, 126.982673), // 지도의 중심좌표
+        	level: 8 // 지도의 확대 레벨
+        };
+		map = new daum.maps.Map(mapContainer, mapOption);
+		
+		var mapTypeControl = new daum.maps.MapTypeControl();
+		
+		// 마커를 생성합니다
+		marker = new daum.maps.Marker({});
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new daum.maps.ZoomControl();
+		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+	}
+	
+	function mapChange(){
+
+		if($(":selected","#agency").text()=="선택해주세요")
+			return false;
+		
+		var loc1 = $(":selected","#agency").attr("title");
+		var loc2 = $(":selected","#agency").attr("id");
+		
+		marker.setPosition(new daum.maps.LatLng(loc1,loc2));
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		map.setLevel(4);
+		
+		var moveLatLon = new daum.maps.LatLng(loc1,loc2);
+	    map.panTo(moveLatLon);
+	}
+	
 
 	function check(){
 		if(!document.bookForm1.agency.value){
@@ -69,27 +102,16 @@
 		}
 	}
 	
-	function map(){
-		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-			mapOption = {
-				center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        	level: 5 // 지도의 확대 레벨
-	        };
-		var map = new daum.maps.Map(mapContainer, mapOption);
-		
-		var loc = $("#loc").attr("value");
-		//alert(loc);
-		var markerPosition  = new daum.maps.LatLng(loc); 
-
-		// 마커를 생성합니다
-		var marker = new daum.maps.Marker({
-		    position: markerPosition	
-		});
-
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
-	} 
+	function selectDate(){
+		// 반납일자가 대여일자보다 뒤면 에러
+		if(($("#rent_date").val())>($("#return_date").val())){
+			alert("반납일자를 다시 확인해주세요.");
+			return;
+		} else if(($("#rent_date").val())==($("#return_date").val())){
+			alert("대여는 1일 이상 신청가능합니다. 다시 선택해주세요.")
+			return;
+		}
+	}
 </script>
 <body onload="map()">
 실시간예약
@@ -100,25 +122,24 @@
 	<tr>
 		<td>지점선택</td>
 		<td>
-			<select id="agency" name="agency">
+			<select id="agency" name="agency" onchange="mapChange()">
 				<option value="">선택해주세요</option>
 				<c:forEach var="agency" items="${agencyList}">
-					<option value="${agency.agency_no}" title="${agency.loc}">${agency.agency_name}</option>
+					<option value="${agency.agency_no}" id="${agency.loc2}" title="${agency.loc1}">${agency.agency_name}</option>
 				</c:forEach>
 			</select>
 		</td>
-		<td><input type="text" name=loc id="loc"/></td>
 	</tr>
 	<tr>
 		<td>대여일자</td>
 		<td>
-			<input type="text" class="testDatepicker" name="rent_date" id="rent_date" readonly>
+			<input type="text" class="testDatepicker" name="rent_date" id="rent_date" onchange="selectDate()" readonly>
 		</td>
 	</tr>
 	<tr>
 		<td>반납일자</td>
 		<td>
-			<input type="text" class="testDatepicker" name="return_date" id="return_date" readonly>
+			<input type="text" class="testDatepicker" name="return_date" id="return_date" onchange="selectDate()" readonly>
 		</td>
 	</tr>
 </table>

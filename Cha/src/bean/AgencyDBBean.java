@@ -32,7 +32,8 @@ public class AgencyDBBean {
 		agency.setMgr(rs.getString("mgr"));
 		agency.setTel(rs.getString("tel"));
 		agency.setCount(rs.getInt("count"));
-		agency.setLoc(rs.getString("loc"));
+		agency.setLoc1(rs.getString("loc1"));
+		agency.setLoc2(rs.getString("loc2"));
 		
 		return agency;
 	}
