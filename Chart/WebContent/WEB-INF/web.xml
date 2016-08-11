@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>JulyJSP</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+
+<servlet>
+	<servlet-name>DBCPInit</servlet-name>
+	<servlet-class>loader.DBCPInit</servlet-class>
+	<init-param>
+		<param-name>jdbcdriver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet> 
+
+<servlet>
+	<servlet-name>MessageDaoProviderInit</servlet-name>
+	<servlet-class>dao.MessageDaoProviderInit</servlet-class>
+	<init-param>
+		<param-name>dbms</param-name>
+		<param-value>oracle</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet> 
+
+
+
+
+  
+  
+  
+  
+  
+<servlet>
+    <servlet-name>controllerURI</servlet-name>					<!-- 얘를 찾아서. 밑의 클래스로 이동하는데
+    																							param name과 value 들고간다.
+    																							ini 파람이니깐...init 메서드 실행시킬때 들고가는 param? -->
+    <servlet-class>mvc.controller2.ControllerUsingURI1</servlet-class>
+  
+    <init-param>
+      <param-name>propertyConfig</param-name>
+      <param-value>E:\workspace16\Chart\WebContent\commandHandlerURICar.properties
+		</param-value>
+    </init-param>
+    
+  </servlet>
+  
+  
+  
+  <servlet-mapping>
+    <servlet-name>controllerURI</servlet-name>			<!-- 웹 브라우저에 do가 걸려서. controllerUsingURI와 매핑된
+    																					서블릿 이름을 찾는다. -->
+    <url-pattern>*.doo</url-pattern>
+  </servlet-mapping>
+
+  
+  
+</web-app> 
