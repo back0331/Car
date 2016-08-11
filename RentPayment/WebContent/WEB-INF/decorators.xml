@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+	<decorator page="MainMenu.jsp" name="main">
+		<pattern>/RealTimeReservation/*</pattern>
+	</decorator>
+	<decorator page="MainMenu.jsp" name="main">
+		<pattern>/InsertingMyCar/*</pattern>
+	</decorator>
+	<decorator page="MainMenu.jsp" name="main">
+		<pattern>/Review/*</pattern>
+	</decorator>
+	<decorator page="MainMenu_MyPage.jsp" name="main_mypage">
+		<pattern>/MyPage/*</pattern>
+	</decorator>
+	<decorator page="MainMenu_ClientCenter.jsp" name="main_clientcenter">
+		<pattern>/ClientCenter/*</pattern>
+	</decorator>
+	<decorator page="MainMenu_AdministratorPage.jsp" name="main_administratorpage">
+		<pattern>/AdministratorPage/*</pattern>
+	</decorator>
+	
+	<!-- 특정 패턴이 정해준 jsp파일에서 decorator파일들 제외되게 하려면 넣어주는 태그 -->
+	<!--<excludes>
+		<pattern>/RentPayment/sitemesh/hello/exclude.jsp</pattern>
+		<pattern>/RentPayment/sitemesh/news/exclude.jsp</pattern>
+	</excludes> -->
+</decorators>
