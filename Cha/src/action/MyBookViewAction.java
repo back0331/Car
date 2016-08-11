@@ -16,10 +16,7 @@ public class MyBookViewAction implements CommandAction{
 		String id = "test";
 		
 		BookDBBean bookDb = BookDBBean.getInstance();
-		List bookDataList = bookDb.getBookList(id);
-		System.out.println("bookDataList size:::" + bookDataList.size());
-		List bookList = bookDb.getBookListDetails(bookDataList);
-		System.out.println("bookList size:::" + bookList.size());
+		List bookList = bookDb.getBookList(id);
 		request.setAttribute("bookList", bookList);
 		return "myBookView.jsp";
 	}

@@ -1,5 +1,4 @@
-/action/
 /bean/
 /controller/
 /jdbc/
-/pool.jocl
+/action/

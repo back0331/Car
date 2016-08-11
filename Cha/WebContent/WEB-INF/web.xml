@@ -45,7 +45,7 @@
 		<servlet-class>controller.ControllerUsingURI</servlet-class>
 		<init-param>
 			<param-name>propertyConfig</param-name>
-			<param-value>C:\Java\workspace\Cha\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
+			<param-value>C:\Users\Yeonsil\git\Car\Cha\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
