@@ -26,7 +26,8 @@ IMP.request_pay({
     buyer_tel : '${phone}',
     buyer_addr : '${address}',
     buyer_postcode : '${zipcode}',
-    m_redirect_url : 'InsertSuccess.jsp'
+    m_redirect_url : 'http://localhost:8088/RentPayment/Payment/InsertSuccess.jsp',
+    notice_url : 'http://localhost:8088/RentPayment/Payment/InsertSuccess.jsp'
      //in app browser결제에서만 사용 
 }, function(rsp){
     if ( rsp.success ) {
@@ -41,13 +42,19 @@ IMP.request_pay({
     }
 });
 </script>
-
+<script type="text/javascript">
+/* var response = new HttpServletResponse(); */
+setTimeout(function(){
+	location.href="InsertSuccess.jsp";}, 3000);
+</script>
 <!-- 결제창 띄우는 코드임.  -->
 <title>Insert title here</title>
 </head>
 <body>
-<script async>
+<script>
 window.onload=function(){location.href="InsertSuccess.jsp";}
 </script>
+결제중
 </body>
+
 </html>
