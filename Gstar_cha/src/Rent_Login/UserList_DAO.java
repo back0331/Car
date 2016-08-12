@@ -27,27 +27,35 @@ public class UserList_DAO {//DB와 관련된 일을 하는 클래스: DBBean, DAO
     }
     
     
-    public boolean idCheck(String id) throws Exception{
-    	boolean result = true;
+    public int confirmId(String id) throws Exception {
     	Connection conn = null;
-    	PreparedStatement pstmt = null;
-    	ResultSet rs  = null;
-    	try {
-    		conn = getConnection();
-    		pstmt= conn.prepareStatement("Select * from test05 where id = ?");
-    		pstmt.setString(1,  id);
-    		rs = pstmt.executeQuery();
-    		if(!rs.next())
-    			result = false;
-    	}catch (SQLException e){
-    		e.printStackTrace();
-    	}finally{
-    		if (rs !=null) try {rs.close(); } catch (SQLException sqle1){}
-    		if (pstmt !=null) try {pstmt.close();} catch (SQLException sqle2){}
-    		if (conn !=null) try { conn.close(); } catch (SQLException sqle3){}
-    	}
-    	return result;
-    	    	
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int x=-1;//경우의 수
+       
+        try {
+            conn = getConnection();
+           
+            pstmt = conn.prepareStatement(
+            "select id from test05 where id = ?");
+            pstmt.setString(1, id);
+           
+           
+            rs= pstmt.executeQuery();
+            System.out.println(id);
+           
+            if(rs.next())
+            	x= 1; //해당 아이디 있음
+            else
+            	x= -1;//해당 아이디 없음
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+        	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        return x;
     }
     
     

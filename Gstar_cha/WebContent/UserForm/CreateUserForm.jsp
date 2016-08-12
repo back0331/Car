@@ -3,14 +3,9 @@
 <html>
 <head>
 <link href="style.css" rel="stylesheet" type="text/css" media="all" />
+<script language="javascript"></script>
 
-<style>
-	
-	
-</style>
-<script>
 
-</script>
 </head>
 <body>
 
@@ -21,6 +16,9 @@
 	<h1 id="row">회원가입</h1>
 	<h6>※<label class="red">*</label>은 필수입력 항목입니다. 회원가입을 위해 반드시 기입해 주십시오.</h6>
 
+
+
+
 			<tr>
 				<td width="130"><label class="red">*</label>이름</td>
 				<td width="350"><input type="text" name="name" size="15"
@@ -30,9 +28,29 @@
 			<tr>
 				<td><label class="red">*</label>아이디</td>
 				<td><input type="text" name="id" size="15" maxlength="15"
-					placeholder="ID" required> <input type="button" name="id"
-					value="ID중복확인" OnClick="javascript:location='/Gstar_cha/UserForm/idCheck.do'"></td>
+					placeholder="ID" required> <input type="button" name="confirm_id"
+					value="ID중복확인" OnClick="openConfirmid(this.form)"></td>
 			</tr>
+			<script>
+			
+			function openConfirmid(userinput) {
+		        // 아이디를 입력했는지 검사
+		        if (userinput.id.value == "") {
+		            alert("아이디를 입력하세요");
+		            return;
+		        }
+		        // url과 사용자 입력 id를 조합합니다.
+		        url = "confirmId.do?id=" + userinput.id.value ;
+		       
+		        // 새로운 윈도우를 엽니다.
+		        open(url, "confirm", "toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=200");
+		    }
+			
+			
+			</script>
+		
+			
+
 
 			<tr>
 				<td><label class="red">*</label>비밀번호</td>
@@ -43,7 +61,7 @@
 		 	<tr>
 				<td><label class="red">*</label>이메일</td>
 				<td><input type="text" name="email" size="15"
-					placeholder="E-mail"> <label>@</label> 
+					placeholder="E-mail" required> <label>@</label> 
 					
 					<select name=email1>
 						<option selected>선택</option>
@@ -59,8 +77,8 @@
 						<option value="010">010</option>
 						<option value="016">016</option>
 				</select> <label>-</label> <input type="text" name="phone2" size="3"
-					maxlength="4"> <label>-</label> <input type="text"
-					name="phone3" size="3" maxlength="4"></td>
+					maxlength="4" required> <label>-</label> <input type="text"
+					name="phone3" size="3" maxlength="4" required></td>
 			</tr>
 
 			
