@@ -26,8 +26,59 @@ public class UserList_DAO {//DB와 관련된 일을 하는 클래스: DBBean, DAO
     	
     }
     
+
+
+
     
-    public int confirmId(String id) throws Exception {
+    
+public int userCheck(String id, String password) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;    
+        ResultSet rs= null;
+        String dbpasswd="";
+        int x=-1;
+        
+        try {
+            conn = getConnection();
+           
+            pstmt = conn.prepareStatement(
+            "select password from test05 where id = ?");
+            pstmt.setString(1, id);
+            rs= pstmt.executeQuery();
+
+            if(rs.next()){
+            	dbpasswd= rs.getString("password");
+            	if(dbpasswd.equals(password))
+            		
+            		
+            		x= 1; //인증 성공
+            	else
+            		x= 0; //비밀번호 틀림
+            }else
+            	x= -1;//해당 아이디 없음
+            System.out.println(dbpasswd);
+            System.out.println(password);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+        	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        return x; 
+    }
+
+
+    
+
+    
+    
+    private void close(Connection con, PreparedStatement ps, ResultSet rs) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int confirmId(String id) throws Exception {
     	Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
