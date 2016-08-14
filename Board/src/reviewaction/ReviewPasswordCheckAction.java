@@ -20,6 +20,7 @@ public class ReviewPasswordCheckAction implements CommandAction {
 		String insertedPassword = request.getParameter("insertedPassword");
 		int article_no = Integer.parseInt(request.getParameter("article_no"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		String confirming = request.getParameter("confirming");
 		System.out.println("insertedPassword:::"+insertedPassword+"article_no:::"+article_no+"currentPage:::"+currentPage);
 		ReviewBoardDBBean dbPro = ReviewBoardDBBean.getInstance();
 		review = dbPro.checkpwd(article_no, insertedPassword);
@@ -30,13 +31,14 @@ public class ReviewPasswordCheckAction implements CommandAction {
 		request.setAttribute("article_subject", review.getArticle_subject());
 		request.setAttribute("article_content", review.getArticle_content());
 		request.setAttribute("article_no", article_no);
-		System.out.println("article_subject:::"+review.getArticle_subject()+"artice_content:::"+review.getArticle_content());
+		System.out.println("article_subject:::"+review.getArticle_subject()+", artice_content:::"+review.getArticle_content()+", confirming:::"+confirming);
 		
-		if(request.getParameter("confirming")=="updateConfirmed"){
-			return "/review_board/updateForm.jsp?article_no=";
-		}else{
-			return "/Board/review_board/delete.do";
+		if("updateConfirmed".equals(confirming)){
+			return "/review_board/updateForm.jsp?article_no="+article_no;
+		}else if("deleteConfirmed".equals(confirming)){
+			return "/review_board/delete.do";
 		}
+		return "/review_board/passwordDenied.jsp";
 	}
 
 }

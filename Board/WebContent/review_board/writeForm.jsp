@@ -25,7 +25,7 @@
 <h1>이용후기</h1>
 <hr/>
 <br>
-<form method="post" name="writeform" action="writePro.jsp" onsubmit="return writeSave()">
+<form method="post" name="writeform" action="/Board/review_board/WritePro.do">
 <input type="hidden" name="id" value="${user_id }"> 
 <input type="hidden" name="article_no" value="${article_no }">
 

@@ -61,7 +61,7 @@ public class ListProAction implements CommandAction {
 				articleList=dbPro.getArticles(startRow,endRow);
 			else
 				articleList=dbPro.getArticles(startRow, endRow, searchn, search);
-		}
+		}else
 		number=count-(currentPage-1)*pageSize;//전체글 갯수-(현재페이지-1)*10;
 		int pageCount = count / pageSize + ( count % pageSize == 0 ? 0 : 1);
 		ReviewBoardDataBean review = null;
