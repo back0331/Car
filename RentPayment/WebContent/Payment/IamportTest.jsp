@@ -51,9 +51,9 @@ setTimeout(function(){
 <title>Insert title here</title>
 </head>
 <body>
-<script>
+<!-- <script>
 window.onload=function(){location.href="InsertSuccess.jsp";}
-</script>
+</script> -->
 결제중
 </body>
 
