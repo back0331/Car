@@ -1,22 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="board.QnACommentDBBean" %>
-<%@ page import="java.sql.Timestamp" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	int comment_no=Integer.parseInt(request.getParameter("comment_no"));
-	int article_no=Integer.parseInt(request.getParameter("article_no"));
-	String pageNum=request.getParameter("pageNum");
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../view/color.jspf"%>
 
-	
-	QnACommentDBBean cmtPro=QnACommentDBBean.getInstance();
+<c:if test="${r>0}">
 
-	 int r = cmtPro.deleteComment(comment_no, article_no);
-  if(r>0){%>
   <script>
   alert("삭제완료");
-  location.href="content.jsp";
+  location.href="/Board/qna_board/content.do?article_no="+${article_no}+"&pageNum="+${pageNum};
   </script>
- <%} %>
+</c:if>
 

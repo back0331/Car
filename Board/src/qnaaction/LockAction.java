@@ -3,6 +3,7 @@ package qnaaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import jdbc.CommandAction;
 import qnaboard.QnABoardDBBean;
 import qnaboard.QnABoardDataBean;
 

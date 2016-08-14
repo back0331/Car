@@ -1,6 +1,6 @@
-/board/
-/controller/
-/jdbc/
-/pool.jocl
+/noticeaction/
 /qnaaction/
+/controller/
 /qnaboard/
+/jdbc/
+/noticeboard/

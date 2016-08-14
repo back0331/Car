@@ -1,19 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import = "board.NoticeBoardDBBean" %>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<% request.setCharacterEncoding("UTF-8"); %>
-
-<jsp:useBean id="article" scope="page" class="board.NoticeBoardDataBean">
-<jsp:setProperty name="article" property="*"/>
-</jsp:useBean>
-
-<%
-	article.setReg_date(new Timestamp(System.currentTimeMillis()));
-	
-
-	NoticeBoardDBBean dbPro=NoticeBoardDBBean.getInstance();
-	dbPro.insertArticle(article);
-
-	response.sendRedirect("list.jsp");
-%>      
+<meta http-equiv="Refresh" content="0;url=/Board/notice/list.do" >

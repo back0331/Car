@@ -11,7 +11,7 @@ function check_pwd(pwd,no,pageNum){
 	var frm = document.getElementById("myform");
 	var pwdv = frm.passwd.value;
 	if(pwd==pwdv){
-		location.href("content.jsp?article_no="+no+"&pageNum="+pageNum);
+		location.href("/Board/qna_board/content.do?article_no="+no+"&pageNum="+pageNum);
 	}else{
 		alert("비밀번호가 맞지않습니다.");
 	}

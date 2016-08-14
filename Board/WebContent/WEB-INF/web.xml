@@ -20,10 +20,10 @@
   </servlet>
   <servlet>
 	<servlet-name>ControllerUsingURI</servlet-name>
-	<servlet-class>mvc.board.ControllerUsingURI</servlet-class>
+	<servlet-class>controller.ControllerUsingURI</servlet-class>
 	<init-param>
 		<param-name>propertyConfig</param-name>
-		<param-value>C:\Users\yeji\workspace\Board\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
+		<param-value>C:\Users\yeji\git\Car\Board\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
 	</init-param>
 	
 </servlet>

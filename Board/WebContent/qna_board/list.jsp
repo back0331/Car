@@ -9,11 +9,11 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="${bodyback_c}">
-<h1> Q & A</h1>
+<h1> Q & A </h1>
 <hr/>
-<h5>차차차 렌터카에 궁금하신 내용을 알려드립니다</h5>
+<h5>차차차 렌터카에 궁금하신 내용을 알려드립니다${user_id}</h5>
 <center>
-<table width="800">
+<table width="800">  
 
 	<td align="right" bgcolor="${value_c}">
 	<a href="/Board/qna_board/writeForm.do"> 글쓰기</a></td>
@@ -25,11 +25,11 @@
 <tr>
 	<td align="center">
 	게시판에 저장된 글이 없습니다.
-	</td>
-</table>
+	</td>  
+</table>  
 </c:if>
 
-<c:if test="${count>0 }">
+<c:if test="${count>0}">
 
 <table border="1" width="800" cellpadding="0" cellspacing="0" align="center">
 <tr height="30" bgcolor="${value_c }">
@@ -42,9 +42,7 @@
     </tr>
  <c:forEach var="article" items="${articleList}">
 	
-		<!-- QnABoardDataBean qna=(QnABoardDataBean)articleList.get(i);
-		int com_count=cdb.getCommentCount(qna.getArticle_no());
- -->
+		<!--int com_count=cdb.getCommentCount(qna.getArticle_no()); -->
 	<tr height="30">
 	<td align="center" width="50">
 	 <c:out value="${number}"/>
@@ -55,11 +53,10 @@
      <td width="300"> 
 
 <c:if test="${user_id=='admin'}">
- <c:if test="${com_check=='y'}"> 
  <a href="/Board/qna_board/content.do?article_no=${article.article_no}&pageNum=${currentPage}">
      ${article.article_subject}</a>
-      <img src="images/hot.gif" border="0"  height="16"></c:if>
-</c:if>
+<c:if test="${com_check=='y'}"><img src="images/hot.gif" border="0"  height="16"></c:if>
+   </c:if>
 <c:if test="${user_id!='admin' }">
     <a href="/Board/qna_board/lock.do?article_no=${article.article_no}&pageNum=${currentPage}">
      ${article.article_subject}</a>  
@@ -69,10 +66,12 @@
 
     <td align="center" width="100" >${article.ip}</td>
   </tr>
+ 
 </c:forEach>
+
 </table>
 </c:if>
-  
+
 <c:if test="${count > 0}">
   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
    <c:set var="pageBlock" value="${5}"/>

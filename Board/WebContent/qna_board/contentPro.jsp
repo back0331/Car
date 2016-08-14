@@ -1,23 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="board.QnACommentDBBean" %>
-<%@ page import="java.sql.Timestamp" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<jsp:useBean id="cmt" scope="page" class="board.QnACommentDataBean">
-	<jsp:setProperty name="cmt" property="*"/>
-</jsp:useBean>
-<%
-    QnACommentDBBean comt=QnACommentDBBean.getInstance();
-	cmt.setReg_date(new Timestamp(System.currentTimeMillis()));
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../view/color.jspf"%>
 
-	
-	comt.insertComment(cmt);
-	
-	String article_no=request.getParameter("article_no");
-	String p_num=request.getParameter("p_num");
-	
-	String url="content.jsp?article_no="+article_no+"&pageNum="+p_num;
-	response.sendRedirect(url);
-%>
-
+<meta http-equiv="Refresh" content="0;url=/Board/qna_board/content.do?
+article_no=${article_no}&pageNum=${pageNum}">

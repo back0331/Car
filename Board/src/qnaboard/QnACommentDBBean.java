@@ -39,7 +39,7 @@ public class QnACommentDBBean {
 			pstmt.setString(3, cdb.getComment_content());
 			pstmt.setTimestamp(4, cdb.getReg_date());
 			pstmt.executeUpdate();
-			pstmt=conn.prepareStatement("update qnaboard set com_check='y' where article=?");
+			pstmt=conn.prepareStatement("update qnaboard set com_check='y' where article_no=?");
 			pstmt.setInt(1, cdb.getArticle_no());
 			pstmt.executeUpdate();
 		

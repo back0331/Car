@@ -1,19 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import = "board.QnABoardDBBean" %>
-<%@ page import = "java.sql.Timestamp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../view/color.jspf"%>
 
-
-<% request.setCharacterEncoding("UTF-8");%>
-
-<%
-//아이디값 받아오고, 받아온 아이디로 비교하여 맞으면 바로 수정! 
- 	 int article_no = Integer.parseInt(request.getParameter("article_no"));
-   
-	QnABoardDBBean dbPro = QnABoardDBBean.getInstance();
-   	 int r = dbPro.deleteArticle(article_no);
-  if(r>0){%>
+ <c:if test="${r>0}">
   <script>
   alert("삭제완료");
-  location.href="list.jsp";
+  location.href="/Board/qna_board/list.do";
   </script>
- <%} %>
+ </c:if>

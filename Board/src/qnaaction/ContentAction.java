@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jdbc.CommandAction;
 import qnaboard.QnABoardDBBean;
 import qnaboard.QnABoardDataBean;
 import qnaboard.QnACommentDBBean;
@@ -31,13 +32,13 @@ public class ContentAction implements CommandAction {
 		  int count=cdb.getCommentCount(qna.getArticle_no());
 			
 	
-		request.setAttribute("article_no", new Integer(article_no));
+		
 		request.setAttribute("pageNum", new Integer(pageNum));
-		request.setAttribute("user_id", user_id);
+		session2.setAttribute("user_id", user_id);
 		request.setAttribute("qna", qna);
 		request.setAttribute("comments",comments);
 		request.setAttribute("count", new Integer(count));
-		
+	 
 	   return "/qna_board/content.jsp"; 
 	
 	}

@@ -1,4 +1,4 @@
-package board;
+package noticeboard;
 import java.sql.Timestamp;
 
 public class NoticeBoardDataBean {

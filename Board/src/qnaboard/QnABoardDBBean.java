@@ -77,7 +77,9 @@ public class QnABoardDBBean {
             if (rs != null) try { rs.close(); } catch(SQLException ex) {}
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }return x;
+        }
+        System.out.println("x::::"+x);
+        return x;
     }
 
     //list.jsp ==> Paging!!! DB로부터 여러행을 결과로 받는다.
@@ -90,8 +92,8 @@ public class QnABoardDBBean {
             conn = getConnection();
            
             pstmt = conn.prepareStatement(
-            "select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check r  " +
-            "from (select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check rownum r"
+            "select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check, r  " +
+            "from (select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check, rownum r"
             + " from qnaboard order by article_no desc) where r >= ? and r <= ? ");
             pstmt.setInt(1, start);
     		pstmt.setInt(2, end);
@@ -152,6 +154,7 @@ return articleList;
             	
             	
 				}
+            
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -159,6 +162,7 @@ return articleList;
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
+        System.out.println(qna);
 		return qna;
     }
 
@@ -228,15 +232,23 @@ return articleList;
     public int deleteArticle(int article_no) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
+        ResultSet rs=null;
         int r=0;
       
         try {
         	conn = getConnection();
-
+        	pstmt=conn.prepareStatement("select com_check from qnaboard where article_no=?");
+        	pstmt.setInt(1, article_no);
+        	rs=pstmt.executeQuery();
+        	if(rs.next()){
+        		pstmt=conn.prepareStatement("delete from qna_comment where article_no=?");
+        		pstmt.setInt(1, article_no);
+        		pstmt.executeUpdate();
+        	}
             pstmt = conn.prepareStatement("delete from qnaboard where article_no= ?" );
                     pstmt.setInt(1, article_no);                                 
-                 r=   pstmt.executeUpdate();
-  
+            r=   pstmt.executeUpdate();
+            System.out.println("r:::"+r);
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -287,8 +299,8 @@ return r;
 		{
 			conn = getConnection();
 			
-			String sql = "select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check r "	
-						+ "from (select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check rownum r "
+			String sql = "select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check, r "	
+						+ "from (select article_no,id,article_subject,password,reg_date,article_content,ip,article_type,com_check, rownum r "
 						+"from qnaboard where "+column_name[n]+" like '%"+searchKeyword+"%') where r >= ? and r <= ?";
 			
     		pstmt=conn.prepareStatement(sql);

@@ -1,12 +1,12 @@
 package controller;
-
+  
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
+import java.util.Properties; 
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import qnaaction.CommandAction;
+import jdbc.CommandAction;
      
 public class ControllerUsingURI extends HttpServlet {
 	private Map commandMap=new HashMap();
@@ -40,7 +40,7 @@ public class ControllerUsingURI extends HttpServlet {
 			String command = (String)keyIter.next();
 			String className=pr.getProperty(command);
 			try{
-			    Class commandClass = Class.forName(className);//클래스로만들고
+				Class commandClass = Class.forName(className);//클래스로만들고
 			    Object commandInstance= commandClass.newInstance();//객체로 만들고
 			    commandMap.put(command, commandInstance);//해당 키와 값을 map객체에 저장
 			}catch(ClassNotFoundException e){
@@ -65,7 +65,7 @@ public class ControllerUsingURI extends HttpServlet {
 	throws ServletException,IOException{
 		String view=null;
 		CommandAction com=null;
-		try{
+		try{   
 			String command=request.getRequestURI();
 			if(command.indexOf(request.getContextPath())==0){
 				command=command.substring(request.getContextPath().length());

@@ -1,4 +1,4 @@
-package board;
+package noticeboard;
 
 import java.sql.*;
 
@@ -160,9 +160,9 @@ public class NoticeBoardDBBean {
                 pstmt.setString(1, article.getArticle_subject());
                 pstmt.setString(2, article.getArticle_content());
                 pstmt.setInt(3, article.getArticle_no());
-       
+               System.out.println(article.getArticle_no());
                 r =  pstmt.executeUpdate();
-                System.out.println(r);
+              
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
