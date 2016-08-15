@@ -27,7 +27,7 @@ public class ControllerUsingURI extends HttpServlet {
 		FileInputStream f= null;
 		try{
 			f= new FileInputStream(props);
-			pr.load(f);//8ï¿½ï¿½ï¿½ï¿½ properties ï¿½ï¿½ï¿½ï¿½
+			pr.load(f);//8°³ÀÇ properties ÀúÀå
 			
 		}catch(IOException e){
 			throw new ServletException(e);
@@ -40,9 +40,9 @@ public class ControllerUsingURI extends HttpServlet {
 			String command = (String)keyIter.next();
 			String className=pr.getProperty(command);
 			try{
-				Class commandClass = Class.forName(className);
-			    Object commandInstance= commandClass.newInstance();
-			    commandMap.put(command, commandInstance);
+				Class commandClass = Class.forName(className);//Å¬·¡½º·Î¸¸µé°í
+			    Object commandInstance= commandClass.newInstance();//°´Ã¼·Î ¸¸µé°í
+			    commandMap.put(command, commandInstance);//ÇØ´ç Å°¿Í °ªÀ» map°´Ã¼¿¡ ÀúÀå
 			}catch(ClassNotFoundException e){
 				throw new ServletException(e);
 			}catch(InstantiationException e){
@@ -56,7 +56,7 @@ public class ControllerUsingURI extends HttpServlet {
 	throws ServletException, IOException{
 		requestPro(request,response);
 	}
-	//ï¿½ï¿½ï¿½Â±×¿ï¿½ postï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¸ postï¿½ï¿½ï¿½, ï¿½×¿Ü´ï¿½ getï¿½ï¿½ï¿½
+	//ÆûÅÂ±×¿¡ post·Î ÁöÁ¤ÇÑ °æ¿ì¸¸ post¹æ½Ä, ±×¿Ü´Â get¹æ½Ä
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException,IOException{
 		requestPro(request,response);
@@ -76,7 +76,7 @@ public class ControllerUsingURI extends HttpServlet {
 			throw new ServletException(e);
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(view);
-		//ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½Ö´ï¿½ RequestDispatcherï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+		//°æ·Î¸¦ ÀúÀåÇÏ°íÀÖ´Â RequestDispatcher°´Ã¼ »ý¼º
 		dispatcher.forward(request,response);
 	}
 
