@@ -75,11 +75,10 @@ public class PayListDBBean {
 			conn = getConnection();
 			String sql = "select total_price from book where book_no=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, 1);//원래는 bdb.getBook_no()임
+			pstmt.setInt(1, 1);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				paymentinfolist.add(rs.getInt(1));
-				System.out.println("user의 book_no으로 total_price받아옴.");
+				paymentinfolist.add(rs.getInt(1));//book테이블의 결제금액 받아옴.
 				sql = "select email, name, phone, address, zipcode, point from user_list where id=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, "java1");//원래는 uldb.getId()
@@ -112,9 +111,9 @@ public class PayListDBBean {
 		try{
 			conn = getConnection();
 			sql = "update pay_list set imp_uid=? where book_no=?";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, imp_uid);
 			pstmt.setInt(2, book_no);
-			pstmt = conn.prepareStatement(sql);
 			check = pstmt.executeUpdate();
 			if(check>0){
 				return check;
@@ -123,6 +122,7 @@ public class PayListDBBean {
 			e.printStackTrace();
 		}
 		return 0;
+		//check값이 0이면 Fail.jsp로 감.
 	}
 	
 }

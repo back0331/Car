@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+결제성공
 <script type="text/javascript">
 function After_Payment(rsp) {
 	var msg = null;

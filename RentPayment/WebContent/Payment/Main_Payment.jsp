@@ -9,6 +9,8 @@
 <!-- 결제 폼 시작 -->
 <form name="Request_Insert" action="/RentPayment/Payment/Insert.do" method="post">
 <!-- pay_list테이블에 값을 저장하는 Insert.do -->
+<!-- 결제마다 부여되는 imp_uid(고유번호)는 아직 얻을 수 없음. 0을 저장할 것. -->
+
 <table border="1" cellpadding="0" cellspacing="1">
 	<tr height="40">
 		<td><label for="pg">&nbsp;&nbsp;지원 PG사</label></td>
@@ -68,10 +70,10 @@
 		<td><input type="text" name="pay_total_price" id="pay_total_price" value="1504" class="col-md-8 col-xs-8" readonly/>${page.point-page.point_using}</td>
 	</tr>
 	<tr height="40">
-		<td colspan="2" align="center"><input type="submit" value="결제하기">${book_no }</td>
+		<td colspan="2" align="center"><input type="submit" value="결제하기"></td>
 	</tr>
 </table>
-
+<input type="hidden" name="book_no"	value="${book_no }">
 </form>
 <!-- 결제폼 끝 -->
 <br>

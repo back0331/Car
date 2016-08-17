@@ -12,5 +12,7 @@ setTimeout(function(){
 </head>
 <body>
 <img src="./loading.gif" width=100px height=100px>
+<!-- 로딩중을 연출하기 위함임. 별 의미 없음. -->
+<!-- After_Payment에 다른 작업을 합치면 될 듯함. -->
 </body>
 </html>

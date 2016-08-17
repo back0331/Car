@@ -9,15 +9,9 @@
 var IMP = window.IMP;
 IMP.init('imp32851262');
 IMP.request_pay({
-    pg : '${pg}', // version 1.1.0부터 지원.
-        /*
-            'kakao':카카오페이,
-            'inicis':이니시스, 'html5_inicis':이니시스(웹표준결제),
-            'nice':나이스,
-            'jtnet':jtnet,
-            'uplus':LG유플러스
-        */
-    pay_method : '${pay_method}', // 'card' : 신용카드 | 'trans' : 실시간계좌이체 | 'vbank' : 가상계좌 | 'phone' : 휴대폰소액결제
+	//json형식의 객체 호출방법. 파라미터가 key, value를 가짐. pg가 키, '${pg}'가 밸류
+    pg : '${pg}',
+    pay_method : '${pay_method}',
     merchant_uid : 'merchant_' + new Date().getTime(),
     name : 'chachacha',
     amount : '${total_price}',
@@ -27,7 +21,6 @@ IMP.request_pay({
     buyer_addr : '${address}',
     buyer_postcode : '${zipcode}',
     notice_url : 'http://localhost:8088/RentPayment/Payment/InsertSuccess.jsp'
-     //in app browser결제에서만 사용 
 }, function(rsp){
     if ( rsp.success ) {
         var msg = '결제가 완료되었습니다.';
@@ -38,6 +31,8 @@ IMP.request_pay({
         msg += 'book_no: ' + '${book_no}';
         alert(msg);
         setTimeout(location.href="/RentPayment/Payment/InsertImp_uid.do?imp_uid="+rsp.imp_uid+"&book_no=${book_no}", 0);
+        //결제성공시 결제한 정보를 alert창으로 띄운뒤 부여된 imp_uid를 db저장하기 위해 InsertImp_uidAction을 실행함.
+        //저장할 imp_uid와 저장할 위치를 찾을 용도의 book_no을 갖고 이동.
     } else { 
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
