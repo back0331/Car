@@ -4,6 +4,11 @@
 <head>
 <script type="text/javascript" src="http://d3tik7g7snxrwv.cloudfront.net/js/jquery.1.11.1.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.1.js"></script>
+
+
+<title>Insert title here</title>
+</head>
+<body>
 <script type="text/javascript">
 function After_Payment(rsp) {
 	var msg = null;
@@ -35,9 +40,5 @@ function After_Payment(rsp) {
 	  }
 }
 </script>
-<title>Insert title here</title>
-</head>
-<body>
-
 </body>
 </html>

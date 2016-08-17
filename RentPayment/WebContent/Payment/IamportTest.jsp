@@ -26,7 +26,6 @@ IMP.request_pay({
     buyer_tel : '${phone}',
     buyer_addr : '${address}',
     buyer_postcode : '${zipcode}',
-    m_redirect_url : 'http://localhost:8088/RentPayment/Payment/InsertSuccess.jsp',
     notice_url : 'http://localhost:8088/RentPayment/Payment/InsertSuccess.jsp'
      //in app browser결제에서만 사용 
 }, function(rsp){
@@ -36,24 +35,19 @@ IMP.request_pay({
         msg += '상점 거래ID : ' + rsp.merchant_uid;
         msg += '결제 금액 : ' + rsp.paid_amount;
         msg += '카드 승인번호 : ' + rsp.apply_num;
+        msg += 'book_no: ' + '${book_no}';
+        alert(msg);
+        setTimeout(location.href="/RentPayment/Payment/InsertImp_uid.do?imp_uid="+rsp.imp_uid+"&book_no=${book_no}", 0);
     } else { 
         var msg = '결제에 실패하였습니다.';
         msg += '에러내용 : ' + rsp.error_msg;
+        alert(msg);
     }
 });
 </script>
-<script type="text/javascript">
-/* var response = new HttpServletResponse(); */
-setTimeout(function(){
-	location.href="InsertSuccess.jsp";}, 3000);
-</script>
-<!-- 결제창 띄우는 코드임.  -->
 <title>Insert title here</title>
 </head>
 <body>
-<!-- <script>
-window.onload=function(){location.href="InsertSuccess.jsp";}
-</script> -->
 결제중
 </body>
 

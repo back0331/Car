@@ -9,7 +9,7 @@
 <tr>
 	<td>
 		<input type="button" value="결제폼으로고고싱" 
-		onclick="javascript:location='/RentPayment/Payment/InsertPro.do'"/>
+		onclick="javascript:location='/RentPayment/Payment/InsertPro.do?book_no=1'"/>
 	</td>
 	<td>
 		예약이 완료되었습니다.<br/>버튼을 누르시면 결제를 진행합니다.

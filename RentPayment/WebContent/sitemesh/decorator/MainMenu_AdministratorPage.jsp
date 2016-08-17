@@ -48,6 +48,6 @@
 body{margin:100px;}
 a{text-decoration:;color:#000000;}
 header{width:1000px;height:100px;margin-top:30px;background-color:#333333;color:#FFF;text-align:center;line-height:100px;}
-nav{width:200px;height:600px;float:left;background-color:#666666;}
+nav{width:200px;height:600px;float:top;background-color:#666666;}
 </style>
 </html>

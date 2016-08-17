@@ -71,6 +71,7 @@ public class ControllerUsingURI extends HttpServlet {
 				command = command.substring(request.getContextPath().length());
 			}
 			com = (CommandAction)commandMap.get(command);
+			System.out.println("command:::"+command+", com:::"+com);
 			view = com.requestPro(request, response);
 		}catch(Throwable e){
 			throw new ServletException(e);

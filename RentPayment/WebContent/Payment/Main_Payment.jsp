@@ -68,9 +68,10 @@
 		<td><input type="text" name="pay_total_price" id="pay_total_price" value="1504" class="col-md-8 col-xs-8" readonly/>${page.point-page.point_using}</td>
 	</tr>
 	<tr height="40">
-		<td colspan="2" align="center"><input type="submit" value="결제하기"></td>
+		<td colspan="2" align="center"><input type="submit" value="결제하기">${book_no }</td>
 	</tr>
 </table>
+
 </form>
 <!-- 결제폼 끝 -->
 <br>

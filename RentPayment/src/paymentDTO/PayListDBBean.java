@@ -19,7 +19,7 @@ public class PayListDBBean {
 		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","scott","ora1234");
 	}
 	
-	public String insertPaymentInfo(PayListDataBean pdb, UserListDataBean uldb, BookDataBean bdb) throws Exception{
+	public String insertPaymentInfo(PayListDataBean pldb, UserListDataBean uldb, BookDataBean bdb, int book_no2) throws Exception{
 		System.out.println("insertPaymentInfo()실행");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -35,19 +35,20 @@ public class PayListDBBean {
 				System.out.println("select문 성공");
 				book_no = rs.getInt(1);
 				jdbcUtil.close(pstmt);
-				sql="insert into pay_list values(pay_list_sequence.nextval,?,?,?,?,?,?,?)";
+				sql="insert into pay_list values(pay_list_sequence.nextval,?,?,?,?,?,?,0,?)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, book_no);//number
 				pstmt.setString(2, uldb.getName());//varchar2
-				pstmt.setString(3, pdb.getPay_method());//varchar2
-				pstmt.setInt(4, pdb.getPay_Total_price());
+				pstmt.setString(3, pldb.getPay_method());//varchar2
+				pstmt.setInt(4, pldb.getPay_Total_price());
 				pstmt.setString(5, uldb.getEmail());//varchar2
-				pstmt.setString(6, pdb.getPg());//varchar2
-				pstmt.setTimestamp(7, pdb.getReg_date());//date
+				pstmt.setString(6, pldb.getPg());//varchar2
+				pstmt.setTimestamp(7, pldb.getReg_date());//date
 				int check = pstmt.executeUpdate();
+				
 				if(check >= 1){
 					System.out.println("insert문 성공");
-					return "/Payment/IamportTest.jsp";
+					return "/Payment/IamportTest.jsp?book_no="+book_no;
 				}
 			}else{
 				System.out.println("select문 실패");
@@ -100,6 +101,28 @@ public class PayListDBBean {
 		}
 		
 		return paymentinfolist;
+	}
+
+	public int insertImp_uid(String imp_uid, int book_no) throws Throwable {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		int check = 0;
+		try{
+			conn = getConnection();
+			sql = "update pay_list set imp_uid=? where book_no=?";
+			pstmt.setString(1, imp_uid);
+			pstmt.setInt(2, book_no);
+			pstmt = conn.prepareStatement(sql);
+			check = pstmt.executeUpdate();
+			if(check>0){
+				return check;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 }
