@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>JulyJSP</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+<!--   
+  	<servlet>
+	   <servlet-name>now</servlet-name>
+	   <servlet-class>day01.NowServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	   <servlet-name>now</servlet-name>
+	   <url-pattern>/now</url-pattern>
+	</servlet-mapping>
+
+	 -->
+	<!-- 
+	
+	<context-param>
+		<description> 초기화 파라미터 </description>
+		<param-name> 초기화 파라미터 이름</param-name>
+		<param-value> 초기화 파라미터 값</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>debug level</param-name>
+		<param-value>5</param-value>
+	</context-param>
+	
+	
+	
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/tlds/el-function.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/el-function.tld</taglib-location>
+		</taglib>
+		
+		
+		<jsp-property-group>
+			<url-pattern>/chap15/oldversion/*</url-pattern>
+			<el-ignored>true</el-ignored>    el을 무시하겠다.
+		</jsp-property-group>
+		
+		<jsp-property-group>
+   			 <url-pattern> /0628/0628_1/view/* </url-pattern>  
+    		<include-prelude>/0628/0628_1/common/variable.jspf</include-prelude>
+    		<include-coda>/0628/0628_1/common/footer.jspf</include-coda>
+  		</jsp-property-group>
+ </jsp-config>
+	
+ -->
+	
+	
+	
+	
+	
+	
+
+ 	
+
+<!-- 	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/0629/chap08/error/error404.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<exception-type>java.lang.NullPointerException</exception-type>
+		<location>/0629/chap08/error/errorNullPointer.jsp</location>
+	</error-page>
+ -->
+<!-- 	
+ <servlet>
+	<servlet-name>DBCPInit</servlet-name>
+	<servlet-class>loader.DBCPInit</servlet-class>
+	<init-param>
+		<param-name>jdbcdriver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet> -->
+
+
+ 
+
+	<!-- 기본메세지번들 -->
+<!-- <context-param> -->		<!-- 모든페이지에서 메세지번들이 설정이된다.  -->
+<!-- 	<param-name>
+		javax.servlet.jsp.jstl.fmt.localizationContext
+	</param-name>
+	<param-value>resource.message</param-value>
+</context-param> 
+
+<context-param>
+	<param-name> javax.servlet.jsp.jstl.fmt.timeZone</param-name>
+	<param-value> Greenwich</param-value>
+</context-param> -->
+
+	
+<!-- 0715 tile 연습시에 추가됨	 -->
+<servlet>
+	<servlet-name>tiles</servlet-name>		<!-- 이름은 아무렇게나 -->
+	<servlet-class>org.apache.tiles.web.startup.TilesServlet</servlet-class>
+	<init-param>
+		<param-name>
+			org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG
+		</param-name>
+		<param-value>/WEB-INF/tiles-hello.xml,/WEB-INF/tiles-service.xml</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet>
+
+
+
+<servlet>
+	<servlet-name>TileDispatchServlet</servlet-name>   <!-- 요고랑 -->
+	<servlet-class>
+		org.apache.tiles.web.util.TilesDispatchServlet
+	</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>TileDispatchServlet</servlet-name>	<!-- 요고 이름 맞춰줘야함. -->
+	<url-pattern>*.tiles</url-pattern>
+</servlet-mapping>
+
+
+
+<filter>
+	<filter-name>sitemesh</filter-name>
+	<filter-class>
+	com.opensymphony.module.sitemesh.filter.PageFilter
+	</filter-class>
+</filter>
+
+<filter-mapping>
+	<filter-name>sitemesh</filter-name>			<!-- //filter이름이 sitemesh인 애를 찾아서 적용시킴. -->
+	<url-pattern>/0715/sitemesh/*</url-pattern>		<!-- 어떤경로든 요청하려면  /* 이렇게 쓰면 된다.  -->
+</filter-mapping>
+
+
+<!-- <servlet>
+	<servlet-name>SimpleController</servlet-name>
+	<servlet-class>mvc.SimpleController</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>SimpleController</servlet-name>
+	<url-pattern>/simple</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	<servlet-name>ControllerUsingFile</servlet-name>
+	<servlet-class>mvc.controller.ControllerUsingFile</servlet-class>	
+														1. 이 클래스에서	
+	<init-param>
+		<param-name>configFile</param-name>
+														configFile이란 이름으로 넘겨준다.
+		<param-value>/WEB-INF/commandHandler.properties</param-value>
+	</init-param>								2. 이 프로퍼티 파일을.
+</servlet>
+<servlet-mapping>
+	<servlet-name>ControllerUsingFile</servlet-name>
+	<url-pattern>/controllerUsingFile</url-pattern>
+</servlet-mapping>
+
+
+
+
+<servlet>
+	<servlet-name>ControllerUsingURI</servlet-name>
+	<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+	<init-param>
+		<param-name>configFile2</param-name>
+		<param-value>
+			/WEB-INF/commandHandlerURI.properties
+		</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ControllerUsingURI</servlet-name>
+	<url-pattern>*.do</url-pattern>
+</servlet-mapping>
+ -->
+
+<servlet>
+	<servlet-name>DBCPInit</servlet-name>
+	<servlet-class>loader.DBCPInit</servlet-class>
+	<init-param>
+		<param-name>jdbcdriver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet> 
+
+<servlet>
+	<servlet-name>MessageDaoProviderInit</servlet-name>
+	<servlet-class>dao.MessageDaoProviderInit</servlet-class>
+	<init-param>
+		<param-name>dbms</param-name>
+		<param-value>oracle</param-value>
+	</init-param>
+	<load-on-startup>1</load-on-startup>
+</servlet> 
+
+
+
+ <servlet>
+    <servlet-name>controllerUsingURI</servlet-name>					<!-- 얘를 찾아서. 밑의 클래스로 이동하는데
+    																							param name과 value 들고간다. -->
+    																							<!-- ini 파람이니깐...init 메서드 실행시킬때 들고가는 param? -->
+    <servlet-class>mvc.controller2.ControllerUsingURI</servlet-class>
+    <init-param>
+      <param-name>propertyConfig</param-name>
+      <param-value>E:\workspace16\Before\WebContent\commandHandlerURI.properties
+		</param-value>
+
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>controllerUsingURI</servlet-name>			<!-- 웹 브라우저에 do가 걸려서. controllerUsingURI와 매핑된
+    																					서블릿 이름을 찾는다. -->
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+  
+  
+  
+<servlet>
+    <servlet-name>controllerURI</servlet-name>					<!-- 얘를 찾아서. 밑의 클래스로 이동하는데
+    																							param name과 value 들고간다.
+    																							ini 파람이니깐...init 메서드 실행시킬때 들고가는 param? -->
+    <servlet-class>mvc.controller2.ControllerUsingURI1</servlet-class>
+  
+    <init-param>
+      <param-name>propertyConfig</param-name>
+      <param-value>C:\Users\user1\git\Car\Before\WebContent\commandHandlerURICar.properties
+		</param-value>
+    </init-param>
+    
+  </servlet>
+  
+  
+  
+  <servlet-mapping>
+    <servlet-name>controllerURI</servlet-name>			<!-- 웹 브라우저에 do가 걸려서. controllerUsingURI와 매핑된
+    																					서블릿 이름을 찾는다. -->
+    <url-pattern>*.doo</url-pattern>
+  </servlet-mapping>
+
+  
+  
+</web-app> 
