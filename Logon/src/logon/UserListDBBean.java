@@ -115,8 +115,8 @@ public int userCheck(String id, String password) throws Exception {
             pstmt.setString(1, member.getId());
             pstmt.setString(2, member.getPassword());
             pstmt.setString(3, member.getName());
-            pstmt.setString(4, member.getEmail());
-            pstmt.setString(5, member.getPhone());
+            pstmt.setString(4, member.getPhone());
+            pstmt.setString(5, member.getEmail());
             pstmt.setString(6, member.getZipcode());
             pstmt.setString(7, member.getAddress());
   
@@ -130,5 +130,51 @@ public int userCheck(String id, String password) throws Exception {
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
     
+    }
+    
+    public int searchPw(String id,String email) throws Exception{
+    	Connection conn=null;
+    	PreparedStatement pstmt= null;
+    	ResultSet rs=null;
+    	int x=-1;
+    	try{
+    		conn=getConnection();
+    		pstmt=conn.prepareStatement("select * from user_car where id=? and email=?");
+    		pstmt.setString(1, id);
+    		pstmt.setString(2, email);
+    		rs= pstmt.executeQuery();
+    		
+    		System.out.println("id:::"+id);
+    		   if(rs.next())
+               	x= 1; 
+               else
+               	x= -1;
+           } catch(Exception ex) {
+               ex.printStackTrace();
+           } finally {
+           	if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+               if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+               if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+           }
+           return x;
+    }
+    public int updatePw(String pw,String id) throws Exception{
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	int x=0;
+    	try{
+    		conn=getConnection();
+    		pstmt=conn.prepareStatement("update user_car set password=? where id=?");
+    		pstmt.setString(1, pw);
+    		pstmt.setString(2, id);
+    		x=pstmt.executeUpdate();
+    	} catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+    	return x;
+    	
     }
 }

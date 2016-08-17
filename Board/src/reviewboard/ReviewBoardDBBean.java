@@ -1,4 +1,4 @@
-package noticeboard;
+package reviewboard;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -61,7 +61,7 @@ public class ReviewBoardDBBean {
 	        try {
 	            conn = getConnection();
 	           
-	            pstmt = conn.prepareStatement("select count(*) from reviewboard");//ÀüÃ¼ ±Û °¹¼ö
+	            pstmt = conn.prepareStatement("select count(*) from reviewboard");//ï¿½ï¿½Ã¼ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	            rs = pstmt.executeQuery();
 
 	            if (rs.next()) {
@@ -76,7 +76,7 @@ public class ReviewBoardDBBean {
 	        }return x;
 	    }
 
-	    //list.jsp ==> Paging!!! DB·ÎºÎÅÍ ¿©·¯ÇàÀ» °á°ú·Î ¹Þ´Â´Ù.
+	    //list.jsp ==> Paging!!! DBï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´Â´ï¿½.
 	    public List getArticles(int start, int end) throws Exception {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
@@ -118,7 +118,7 @@ public class ReviewBoardDBBean {
 	return articleList;
 	    }
 
-	    //read.jsp : DB·ÎºÎÅÍ ÇÑÁÙÀÇ µ¥ÀÌÅÍ¸¦ °¡Á®¿Â´Ù.
+	    //read.jsp : DBï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
 	    public ReviewBoardDataBean getArticle(int article_no) throws Exception {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
@@ -127,14 +127,14 @@ public class ReviewBoardDBBean {
 	        try {
 	            conn = getConnection();
 
-	            pstmt = conn.prepareStatement(
-	            "select * from reviewboard where article_no = ?");
+	            pstmt = conn.prepareStatement("select * from reviewboard where article_no = ?");
 	            pstmt.setInt(1, article_no);
 	            rs = pstmt.executeQuery();
-
+	           
 	            if (rs.next()) {
 	            	review = new ReviewBoardDataBean();
 	            	review.setArticle_no(rs.getInt("article_no"));
+	            	review.setId(rs.getString("id"));
 	            	review.setBook_no(rs.getInt("book_no"));
 	            	review.setArticle_subject(rs.getString("article_subject"));
 	            	review.setArticle_content(rs.getString("article_content"));
@@ -149,6 +149,7 @@ public class ReviewBoardDBBean {
 	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 	        }
+	        System.out.println("review:::"+review);
 			return review;
 	    }
 	    
@@ -318,13 +319,16 @@ public class ReviewBoardDBBean {
 	        try {
 	            conn = getConnection();
 	           
-	    pstmt = conn.prepareStatement("select password from reviewboard where article_no=?");
+	    pstmt = conn.prepareStatement("select * from reviewboard where article_no=?");
 	   
 	                pstmt.setInt(1,article_no);
 	       
 	                rs =  pstmt.executeQuery();
 	              if(rs.next()){
 	            	  review=new ReviewBoardDataBean();
+	            	  review.setArticle_no(rs.getInt("article_no"));
+	            	  review.setArticle_subject(rs.getString("article_subject"));
+	            	  review.setArticle_content(rs.getString("article_content"));
 	            	  review.setPassword(rs.getString("password"));
 	              }
 	        } catch(Exception ex) {
@@ -334,6 +338,7 @@ public class ReviewBoardDBBean {
 	            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
 	            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
 	        }	
+	        
 	        return review;
 	    }
 	   

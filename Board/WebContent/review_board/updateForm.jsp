@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import = "board.ReviewBoardDBBean" %>
-<%@ page import = "board.ReviewBoardDataBean" %>
-<%@ include file="color.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../view/color.jspf"%>
 <html>
 <head>
 <title>게시판</title>
@@ -9,50 +9,40 @@
 <script src="script.js"></script>
 </head>
 
-<%
-  int article_no = Integer.parseInt(request.getParameter("article_no"));
-  String pageNum = request.getParameter("pageNum");
-  try{
-	  ReviewBoardDBBean dbPro = ReviewBoardDBBean.getInstance();
-	  ReviewBoardDataBean review =  dbPro.updateGetArticle(article_no);
-   
-%>
  
-<body bgcolor="<%=bodyback_c%>"> 
+<body bgcolor="${bodyback_c}"> 
 <b>이용후기</b>
 <hr/>
 <br>
 <center>
-<form method="post" name="writeForm" action="updatePro.jsp?pageNum=<%=pageNum%>"
+<form method="post" name="writeForm" action="/Board/review_board/updatePro.do?pageNum=${pageNum}"
   onsubmit="return writeSave()">
-<table width="500" border="1" cellspacing="0" cellpadding="0"  bgcolor="<%=bodyback_c%>"
+<table width="500" border="1" cellspacing="0" cellpadding="0"  bgcolor="${bodyback_c}"
   align="center">
   <tr>
-     <td  width="150"  bgcolor="<%=value_c%>" align="center" >제 목</td>
+     <td  width="150"  bgcolor="${value_c}" align="center" >제 목</td>
     <td align="left" width="350">
-       <input type="text" size="40" maxlength="50" name="article_subject" value="<%=review.getArticle_subject()%>"></td>
+       <input type="text" size="40" maxlength="50" name="article_subject" value="${review.article_subject}"></td>
   </tr>
   <tr>
-    <td  width="150"  bgcolor="<%=value_c%>" align="center" >내 용</td>
+    <td  width="150"  bgcolor="${value_c}" align="center" >내 용</td>
     <td align="left" width="350">
-     <textarea rows="13" cols="50" name="article_content" ><%=review.getArticle_content()%></textarea></td>
+     <textarea rows="13" cols="50" name="article_content" >${review.article_content}</textarea></td>
   </tr>
-    </table>
+    </table>    
 
   <br/>
   <tr>     
-   <td colspan=2 bgcolor="<%=value_c%>" align="center">
-   <input type="hidden" name="article_no" value=<%=article_no %>>
+   <td colspan=2 bgcolor="${value_c}" align="center">
+   <input type="hidden" name="article_no" value="${article_no}">
      <input type="submit" value="글수정" > 
      <input type="reset" value="다시작성">
      <input type="button" value="취소"
-       onclick="document.location.href='list.jsp?pageNum=<%=pageNum%>'">
+       onclick="document.location.href='/Board/review_board/list.do?pageNum=${pageNum}'">
    </td>
 </tr>
 
 </form>
-<%
-}catch(Exception e){}%>     
-     
+
 </body>
 </html>     

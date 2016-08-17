@@ -1,4 +1,4 @@
-package noticeboard;
+package reviewboard;
 
 import java.sql.Timestamp;
 

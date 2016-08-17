@@ -27,7 +27,7 @@ public class ControllerUsingURI extends HttpServlet {
 		FileInputStream f= null;
 		try{
 			f= new FileInputStream(props);
-			pr.load(f);//8���� properties ����
+			pr.load(f);
 			
 		}catch(IOException e){
 			throw new ServletException(e);
@@ -41,6 +41,7 @@ public class ControllerUsingURI extends HttpServlet {
 			String className=pr.getProperty(command);
 			try{
 				Class commandClass = Class.forName(className);
+				System.out.println("clasName::::"+className);
 			    Object commandInstance= commandClass.newInstance();
 			    commandMap.put(command, commandInstance);
 			}catch(ClassNotFoundException e){
@@ -56,7 +57,6 @@ public class ControllerUsingURI extends HttpServlet {
 	throws ServletException, IOException{
 		requestPro(request,response);
 	}
-	//���±׿� post�� ������ ��츸 post���, �׿ܴ� get���
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException,IOException{
 		requestPro(request,response);
@@ -76,7 +76,6 @@ public class ControllerUsingURI extends HttpServlet {
 			throw new ServletException(e);
 		}
 		RequestDispatcher dispatcher=request.getRequestDispatcher(view);
-		//��θ� �����ϰ��ִ� RequestDispatcher��ü ����
 		dispatcher.forward(request,response);
 	}
 
