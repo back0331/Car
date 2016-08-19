@@ -1,0 +1,8 @@
+body{margin:auto;width:1100px;}
+div.headmenu{margin-top:10px;margin-bottom:10px;background-color:#EAEAEA;text-align:center;padding:20px;text-align:center;}
+div.headmenu a{text-decoration:none;color:#000000;margin:30px;}
+div.headmenu a:HOVER{text-decoration:underline;}
+section{}
+div.submenu{margin:20px;font-size:30px;}
+div.content{}
+nav{width:150px;float:left;}
