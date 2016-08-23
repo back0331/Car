@@ -34,11 +34,11 @@ public class MyCarInputProAction implements CommandAction{
 			}
 		}
 		
-		System.out.println(mycar_name);
-		System.out.println(car_no);
-		System.out.println(carnumber);
-		System.out.println(color);
-		System.out.println(options);
+//		System.out.println(mycar_name);
+//		System.out.println(car_no);
+//		System.out.println(carnumber);
+//		System.out.println(color);
+//		System.out.println(options);
 		
 		int result = 0;
 		MyCarRegisterDBBean myCarDb = MyCarRegisterDBBean.getInstance();

@@ -5,14 +5,13 @@
 
 <html>
 <head>
-<link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="${bodyback_c}">
-<h5>차차차 공지사항을 알려드립니다</h5>
+
 
 <br/>
 <center>
-<table width="800" >
+<table width="80%">
 <c:if test="${user_id=='admin'}">  
 	<td align="right" bgcolor="${value_c}">
 	<a href="/clientCenter/notice/writeForm.do"> 글쓰기</a></td>

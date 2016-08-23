@@ -8,7 +8,6 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body bgcolor="${bodyback_c}">
-<h5>차차차 렌터카에 궁금하신 내용을 알려드립니다${user_id}</h5>
 <center>
 <table width="800">  
 

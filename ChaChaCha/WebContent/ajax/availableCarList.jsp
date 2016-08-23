@@ -6,8 +6,6 @@
 <%@page import="java.util.List"%>
 <%@page import="bean.BookDBBean"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -52,45 +50,36 @@
 <title>Insert title here</title>
 </head>
 <body>
-<table id="table">
+<table id="table" width="1000px;" cellpadding="0" cellspacing="0" >
 <tr>
-		<th>차ID</td>
-		<th>지점</td>
-		<th>차타입</th>
-		<th>차명</td>
-		<th>옵션</td>
-		<th>색상</td>
-		<th>가격</td>
-		<th>선택</th>
+		<th width="150">차타입</th>
+		<th colspan="2">차량</th>
+		<th width="200">가격</th>
+		<th width="100">선택</th>
 </tr>
 <c:if test="${empty availableCarList && empty availableUserCarList}">
-	<tr><td colspan="8">가능한 차가 없습니다.</td></tr>
+	<tr><td colspan="5" height="130px">가능한 차가 없습니다.</td></tr>
 </c:if>
 <c:if test="${!empty availableCarList}">
 <c:forEach var="car" items="${availableCarList}">
 	<tr>
-		<td>${car.car_id}</td>
-		<td>${car.agency_no}</td>
 		<td>${car.car_type}</td>
-		<td>${car.car_name}</td>
-		<td>${car.options}</td>
-		<td>${car.color}</td>
-		<td>${car.price}</td>
+		<td><img src="../realTimeReservation/car_images/${car.car_no}.jpg" width="160px"/></td>
+		<td class="r"><b>${car.car_name}</b><br>
+			옵션 : ${car.options}</td>
+		<td>${car.price}원/1일</td>
 		<td><input type="radio" name="car_id" value="${car.car_id}/c"/></td>
 	</tr>
 </c:forEach>
 </c:if>
 <c:if test="${!empty availableUserCarList}">
-	<tr><td colspan="8">UserCarList</td></tr>
 	<c:forEach var="userCar" items="${availableUserCarList}">
 		<tr>
-			<td>${userCar.car_id}</td>
-			<td>${userCar.agency_no}</td>
 			<td>${userCar.car_type}</td>
-			<td>${userCar.car_name}</td>
-			<td>${userCar.options}</td>
-			<td>${userCar.color}</td>
-			<td>${userCar.price}</td>
+			<td><img src="../realTimeReservation/car_images/${userCar.car_no}.jpg" width="160px"/></td>
+			<td class="r"><b>${userCar.car_name}</b><br>
+				옵션 : ${userCar.options}</td>
+			<td>${userCar.price}원/1일</td>
 			<td><input type="radio" name="car_id" value="${userCar.car_id}/u"/></td>
 		</tr>
 	</c:forEach>

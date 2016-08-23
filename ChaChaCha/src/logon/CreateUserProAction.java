@@ -24,7 +24,8 @@ public class CreateUserProAction implements CommandAction{
 		uldb.setEmail(request.getParameter("email"));
 		uldb.setPhone(request.getParameter("phone")+request.getParameter("phone2")+request.getParameter("phone3"));
 		uldb.setZipcode(request.getParameter("zipcode"));
-		uldb.setAddress(request.getParameter("address")+request.getParameter("address2"));
+		uldb.setAddress1(request.getParameter("address1"));
+		uldb.setAddress2(request.getParameter("address2"));
 		int monthInt = Integer.parseInt(request.getParameter("month"));
 		String month = String.format("%02d",monthInt);
 		int dayInt = Integer.parseInt(request.getParameter("day"));

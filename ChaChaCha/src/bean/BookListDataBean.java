@@ -20,7 +20,8 @@ public class BookListDataBean {
 	private String car_name;
 	private String car_type;
 	private String car_brand;
-	
+	private String review;
+
 	public int getBook_no() {
 		return book_no;
 	}
@@ -134,5 +135,11 @@ public class BookListDataBean {
 	}
 	public void setAgency_name(String agency_name) {
 		this.agency_name = agency_name;
+	}
+	public String getReview() {
+		return review;
+	}
+	public void setReview(String review) {
+		this.review = review;
 	}
 }

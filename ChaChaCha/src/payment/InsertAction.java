@@ -29,7 +29,8 @@ public class InsertAction implements CommandAction {
 		uldb.setEmail(request.getParameter("email"));
 		uldb.setName(request.getParameter("name"));
 		uldb.setPhone(request.getParameter("phone"));
-		uldb.setAddress(request.getParameter("address"));
+		uldb.setAddress1(request.getParameter("address1"));
+		uldb.setAddress2(request.getParameter("address2"));
 		uldb.setZipcode(request.getParameter("zipcode"));
 		uldb.setPoint(Integer.parseInt(request.getParameter("point")));
 		//PayListDataBean, BookDataBean, UserListDataBean에 결제에 필요한 값들을 저장해둠.
@@ -42,7 +43,8 @@ public class InsertAction implements CommandAction {
 		session.setAttribute("email", request.getParameter("email"));
 		session.setAttribute("name", request.getParameter("name"));
 		session.setAttribute("phone", request.getParameter("phone"));
-		session.setAttribute("address", request.getParameter("address"));
+		session.setAttribute("address1", request.getParameter("address1"));
+		session.setAttribute("address2", request.getParameter("address2"));
 		session.setAttribute("zipcode", request.getParameter("zipcode"));
 		session.setAttribute("point", Integer.parseInt(request.getParameter("point")));
 		//결제를 하는 javascript코드에 필요한 값들을 세션 영역에 파라미터 형식으로 저장해둠.

@@ -5,44 +5,233 @@
 <%
 	String id = (String)request.getSession().getAttribute("userId");
 	request.setAttribute("id", id);
+	String path=request.getRequestURI();
+	int index = path.lastIndexOf("/");
+	String type = path.substring(18,index);
+	request.setAttribute("type", type);
 %>
-<link type="text/css" rel="stylesheet" href="../decorators/style.css"/>
+<link type="text/css" rel="stylesheet" href="../../decorators/style.css"/>
 <html>
     <head>
-    <script src="../decorators/script1.js" ></script>
+    <script src="../../decorators/script1.js" ></script>
         <title><decorator:title default="chachacha(차차차)입니다."/></title>
 	    <decorator:head/>
     </head>
     <body>
-    	<div class="headmenu">
-			<a href="/ChaChaCha/realTimeReservation/book1InputForm.do" target="_self" onfocus="selectMenu()" onblur="blurMenu()">실시간 예약</a>
-			<a href="/ChaChaCha/insertingMyCar/myCarRegisterInputForm.do" target="_self" onfocus="selectMenu()" onblur="blurMenu()">내 차 등록</a>
-			<a href="/ChaChaCha/review/list.do" target="_self" onfocus="selectMenu()" onblur="blurMenu()">이용후기</a>
-			<a href="/ChaChaCha/myPage/myPointView.do" target="_self" onfocus="selectMenu()" onblur="blurMenu()">마이페이지</a>
-			<a href="/ChaChaCha/clientCenter/notice/list.do" target="_self" onfocus="selectMenu()" onblur="blurMenu()">고객센터</a>
-			<c:if test="${empty id}"><input type="button" onclick="login()" value="로그인"></c:if>
-			<c:if test="${!empty id}">${id}님<input type="button" onclick="logout()" value="로그아웃"></c:if>
+    	<header>
+    	<div class="headmenu" >
+		<a href="/ChaChaCha/main/main.do"><img src="../../decorators/cha.png" width="160px"/></a>
+		<nav id="main-nav" class="header_menu">
+	    	<c:if test="${empty id}">
+	    	<ul>
+	    		<li class="main_menu"><a href="/ChaChaCha/realTimeReservation/book1InputForm.do" target="_self" onclick="checkLogin();return false;">실시간예약</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/insertingMyCar/myCarRegisterInputForm.do" target="_self" onclick="checkLogin();return false;">차량등록</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/review/list.do" target="_self">이용후기</a></li>
+	    		<li class="main_menu current"><a href="/ChaChaCha/myPage/point/myPointView.do" target="_self" onclick="checkLogin();return false;">마이페이지</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/clientCenter/notice/list.do" target="_self">고객센터</a></li>
+	    	</ul>
+	    	<div class="logBtn">
+	    		<a href="#" onclick="login();return false;" id="login">로그인</a>
+	    		<a href="#" onclick="logon();return false;">회원가입</a>
+	    	</div>
+	    	</c:if>
+	    	<c:if test="${!empty id}">
+	    	<ul>
+	    		<li class="main_menu"><a href="/ChaChaCha/realTimeReservation/book1InputForm.do" target="_self">실시간예약</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/insertingMyCar/myCarRegisterInputForm.do" target="_self">차량등록</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/review/list.do" target="_self">이용후기</a></li>
+	    		<li class="main_menu current"><a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">마이페이지</a></li>
+	    		<li class="main_menu"><a href="/ChaChaCha/clientCenter/notice/list.do" target="_self">고객센터</a></li>
+	    	</ul>
+	    	<div class="logBtn1">
+	    		<span><b>${id}</b> 님</span>
+	    		<a href="#" onclick="logout();return false;">Logout</a>
+	    	</div>
+	    	</c:if>
+	    </nav>
 		</div>
-		<hr>
+		</header>
 		<section>
+			<div id="con">
 			<div class="submenu">마이페이지</div>
-			<nav>
-				<a href="/ChaChaCha/myPage/myPointView.do" target="_self">내 마일리지</a><hr/>
-				<a href="/ChaChaCha/myPage/myBookView.do" target="_self">예약내역</a><hr/>
-				<a href="/ChaChaCha/myPage/myPointView.do" target="_self">취소내역</a><hr/>
-				<a href="/ChaChaCha/myPage/myCarView.do" target="_self">내 차 정보</a><hr/>
-				<a href="/ChaChaCha/myPage/myCarRegisterView.do" target="_self">내 차 등록내역</a><hr/>
-				<div class="dropdown">
-					<button class="dropbtn">불편사항신고</button>
-					<div class="dropdown-content">
-					<a href="" target="contents">신고하기</a><hr/>
-					<a href="" target="contents">신고내역</a><hr/>
-					</div>
+			<div class="nav_menu">
+			<nav id="menuItem">
+	 			<!-- 1. point -->
+				<c:if test="${type=='point'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_y.png"/></a>
 				</div>
-				<a href="/ChaChaCha/logon/modifyForm.do" target="_self">회원정보수정</a><hr/>
-				<a href="/ChaChaCha/myPage/myPointView.do" target="_self">회원탈퇴</a><hr/>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_n.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_n.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_n.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_n.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_n.png"/></a>
+				</div>
+				</c:if>
+				
+				<!-- 2.book -->
+				<c:if test="${type=='book'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_n.png"/></a>
+				</div>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_y.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_n.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_n.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_n.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_n.png"/></a>
+				</div>
+				</c:if>
+				
+				<!-- 3. mycar -->
+				<c:if test="${type=='mycar'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_n.png"/></a>
+				</div>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_n.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_y.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_n.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_n.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_n.png"/></a>
+				</div>
+				</c:if>
+				
+				<!-- 4. register -->
+				<c:if test="${type=='register'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_n.png"/></a>
+				</div>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_n.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_n.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_y.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_n.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_n.png"/></a>
+				</div>
+				</c:if>
+				
+				<!-- 5. complain -->
+				<c:if test="${type=='complain'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_n.png"/></a>
+				</div>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_n.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_n.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_n.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_y.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_n.png"/></a>
+				</div>
+				</c:if>
+				
+				<!-- 6. my -->
+				<c:if test="${type=='my'}">
+				<div id="point">
+						<a href="/ChaChaCha/myPage/point/myPointView.do" target="_self">
+						<img src="../../decorators/images/point_n.png"/></a>
+				</div>
+				<div id="book">
+					<a href="/ChaChaCha/myPage/book/myBookView.do" target="_self">
+					<img src="../../decorators/images/book_n.png"/></a>
+				</div>
+				<div id="mycar">
+						<a href="/ChaChaCha/myPage/mycar/myCarView.do" target="_self">
+						<img src="../../decorators/images/mycar_n.png"/></a>
+				</div>
+				<div id="register">
+					<a href="/ChaChaCha/myPage/register/myCarRegisterView.do" target="_self">
+					<img src="../../decorators/images/register_n.png"/></a>
+				</div>
+				<div id="complain">
+					<a href="#" target="_self">
+					<img src="../../decorators/images/complain_n.png"/></a>
+				</div>
+				<div id="my">
+					<a href="/ChaChaCha/myPage/my/userModifyForm.do" target="_self">
+					<img src="../../decorators/images/my_y.png"/></a>
+				</div>
+				</c:if>
+				
+				
 			</nav>
-			<div class="content" scrolling="yes"><decorator:body/></div>
+			<div class="content2" scrolling="yes"><decorator:body/></div>
+			</div>
+			</div>
 		</section>
+				
+		<footer>
+		</footer>
     </body>
 </html>

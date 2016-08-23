@@ -13,6 +13,7 @@ public class WriteFormAction implements CommandAction {
 		
 		HttpSession session2 = request.getSession();
 		String user_id = (String)session2.getAttribute("userId");
+		int book_no = Integer.parseInt(request.getParameter("book_no"));
 		int article_no=0;
 		  
 		    if(request.getParameter("article_no")!=null){
@@ -20,6 +21,7 @@ public class WriteFormAction implements CommandAction {
 			    }
 		    request.setAttribute("article_no", new Integer(article_no));
 		    request.setAttribute("user_id", user_id);
+		    request.setAttribute("book_no", book_no);
 		    
 		return "/review/writeForm.jsp";
 	}

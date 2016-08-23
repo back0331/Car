@@ -11,6 +11,7 @@ public class BookDataBean {
 	private String state;
 	private String state_date;
 	private String reg_date;
+	private String review;
 	
 	public int getBook_no() {
 		return book_no;
@@ -72,6 +73,11 @@ public class BookDataBean {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	
+	public String getReview() {
+		return review;
+	}
+	public void setReview(String review) {
+		this.review = review;
+	}
 	
 }

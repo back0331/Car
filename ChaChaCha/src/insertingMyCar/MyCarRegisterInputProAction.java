@@ -42,6 +42,7 @@ public class MyCarRegisterInputProAction implements CommandAction{
 		if(mycar.equals("new")){
 			String options="";
 			if(optionsArray==null){
+				options="해당없음";
 			}else if(optionsArray.length>0){
 				for(int i = 0; i < optionsArray.length; i++){
 					if(i==(optionsArray.length-1))

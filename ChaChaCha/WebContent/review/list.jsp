@@ -37,7 +37,7 @@
 
 
 	<td align="center" width="300">
-	 <a href="/review/lock.do?article_no=${article.article_no}&pageNum=${currentPage}">
+	 <a href="/ChaChaCha/review/lock.do?article_no=${article.article_no}&pageNum=${currentPage}">
      ${article.article_subject}</a></td> 
      <td align="center"  width="100">${article.id}</td> 
      <td align="center"  width="250">${article.reg_date}</td>

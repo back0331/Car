@@ -28,7 +28,7 @@ public class NoticeBoardDBBean {
 		
     	try{   	
     		conn=getConnection();
-    	    System.out.println(article.getArticle_content());
+    	    //System.out.println(article.getArticle_content());
 
             pstmt = conn.prepareStatement(
             		"insert into notice_board(article_no,article_subject,reg_date,article_content) values(board_num.NEXTVAL,?,?,?)");
@@ -160,7 +160,7 @@ public class NoticeBoardDBBean {
                 pstmt.setString(1, article.getArticle_subject());
                 pstmt.setString(2, article.getArticle_content());
                 pstmt.setInt(3, article.getArticle_no());
-               System.out.println(article.getArticle_no());
+               //System.out.println(article.getArticle_no());
                 r =  pstmt.executeUpdate();
               
         } catch(Exception ex) {

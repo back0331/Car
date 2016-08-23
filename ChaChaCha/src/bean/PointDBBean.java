@@ -61,7 +61,7 @@ public class PointDBBean {
 				pstmt.setString(2, point.getId());
 				pstmt.executeUpdate();
 			} else if(type.equals("»ç¿ë")){
-				pstmt = conn.prepareStatement("update user_list set point-? where id=?");
+				pstmt = conn.prepareStatement("update user_list set point=point-? where id=?");
 				pstmt.setInt(1, Integer.parseInt((point.getAmount())));
 				pstmt.setString(2, point.getId());
 				pstmt.executeUpdate();
@@ -90,7 +90,7 @@ public class PointDBBean {
 		
 		try {
 			conn = getConnection();
-			pstmt = conn.prepareStatement("select point_no,id,type,amount,to_char(reg_date,'YYYY-MM-DD') reg_date from point where id=? order by reg_date desc");
+			pstmt = conn.prepareStatement("select point_no,id,type,amount,reg_date from point where id=? order by reg_date desc");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			while(rs.next()){

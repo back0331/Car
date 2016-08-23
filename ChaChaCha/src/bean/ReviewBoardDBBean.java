@@ -33,14 +33,13 @@ public class ReviewBoardDBBean {
 	       	try{
 	       		conn=getConnection();
 	       		sql="insert into review_board(article_no,book_no,article_subject,article_content,password,reg_date,id)"
-	       				+"values(seg_review_board_article_no.NEXTVAL,?,?,?,?,?,?)";
+	       				+"values(seq_review_board_article_no.NEXTVAL,?,?,?,?,sysdate,?)";
 	       		pstmt=conn.prepareStatement(sql);
 	       		pstmt.setInt(1,review.getBook_no() );
 	       		pstmt.setString(2, review.getArticle_subject());
 	       		pstmt.setString(3, review.getArticle_content());
 	       		pstmt.setString(4,review.getPassword());
-	       		pstmt.setTimestamp(5, review.getReg_date());
-	       		pstmt.setString(6, review.getId());
+	       		pstmt.setString(5, review.getId());
 	             r= pstmt.executeUpdate();
 	       	}catch(Exception ex) {
 	            ex.printStackTrace();

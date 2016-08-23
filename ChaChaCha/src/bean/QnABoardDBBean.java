@@ -75,7 +75,7 @@ public class QnABoardDBBean {
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
-        System.out.println("x::::"+x);
+        //System.out.println("x::::"+x);
         return x;
     }
 

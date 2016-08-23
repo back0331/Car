@@ -11,7 +11,7 @@ function check_pwd(pwd,no,pageNum){
 	var frm = document.getElementById("myform");
 	var pwdv = frm.passwd.value;
 	if(pwd==pwdv){
-		location.href("/review/content.do?article_no="+no+"&pageNum="+pageNum);
+		location.href("review/content.do?article_no="+no+"&pageNum="+pageNum);
 	}else{
 		alert("비밀번호가 맞지않습니다.");
 	}
@@ -34,7 +34,7 @@ function check_pwd(pwd,no,pageNum){
     <TD colspan="2" align="middle" bgcolor="${title_c}" >
       <INPUT type="button" value="확인" onclick="check_pwd('${review.password}','${article_no}','${pageNum}')">
       <INPUT type=reset value="다시입력">
-     <input type="button" value="취소" OnClick="window.location='/review/list.do'">
+     <input type="button" value="취소" OnClick="window.location='/ChaChaCha/review/list.do'">
      
 </TABLE>
 </form>

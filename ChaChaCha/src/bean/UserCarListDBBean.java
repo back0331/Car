@@ -324,4 +324,147 @@ public class UserCarListDBBean {
 		}
 		return result;
 	}
+	
+	public void updateExpiredUserCarList(String today) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from user_car_list where enddate<?");
+			pstmt.setString(1, today);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				pstmt = conn.prepareStatement(
+					"insert into expired_user_car_list(car_id,id,mycar_name,agency_no,startdate,enddate,checkdate,state,reg_date)"
+					+ " values(?,?,?,?,?,?,?,?,?)");
+				pstmt.setString(1, rs.getString("car_id"));
+				pstmt.setString(2, rs.getString("id"));
+				pstmt.setString(3, rs.getString("mycar_name"));
+				pstmt.setInt(4, rs.getInt("agency_no"));
+				pstmt.setTimestamp(5, rs.getTimestamp("startdate"));
+				pstmt.setTimestamp(6, rs.getTimestamp("enddate"));
+				pstmt.setTimestamp(7, rs.getTimestamp("checkdate"));
+				pstmt.setString(8, rs.getString("state"));
+				pstmt.setTimestamp(9, rs.getTimestamp("reg_date"));
+				int result = pstmt.executeUpdate();
+//				System.out.println("result:::"+result);
+				if(result==1){
+					pstmt2 = conn.prepareStatement("delete from user_car_list where car_id=?");
+					pstmt2.setString(1, rs.getString("car_id"));
+					int result2 = pstmt2.executeUpdate();
+//					System.out.println("result2:::"+result2);
+					if(result2==0)
+						JdbcUtil.rollback(conn);
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+	}
+	
+	public List getExpiredUserCarList(String id) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List expiredUserCarRegisterList = new ArrayList();
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+				"select TO_CHAR(reg_date,'YYYY-MM-DD') reg_date, mycar_name,agency_name,"
+				+ "TO_CHAR(startdate,'YYYY-MM-DD') startdate,TO_CHAR(enddate,'YYYY-MM-DD') enddate "
+				+ "from expired_user_car_list u, agency a where id=? and a.agency_no=u.agency_no order by reg_date desc");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				UserCarListDataBean expiredUserCarList = new UserCarListDataBean();
+				expiredUserCarList.setReg_date(rs.getString("reg_date"));
+				expiredUserCarList.setMyCarName(rs.getString("mycar_name"));
+				//state 프로퍼티에 지점명을 임시로 저장해둠
+				expiredUserCarList.setState(rs.getString("agency_name"));
+				expiredUserCarList.setStartDate(rs.getString("startdate"));
+				expiredUserCarList.setEndDate(rs.getString("enddate"));
+				
+				expiredUserCarRegisterList.add(expiredUserCarList);
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+		return expiredUserCarRegisterList;
+	}
+	
+	//user_car_list에서 해당 id로 등록된 차 목록을 가져온다.
+	public List getUserCarList(String id) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List UserCarRegisterList = new ArrayList();
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(
+				"select car_id,TO_CHAR(reg_date,'YYYY-MM-DD') reg_date, mycar_name,agency_name,"
+				+ "TO_CHAR(startdate,'YYYY-MM-DD') startdate,TO_CHAR(enddate,'YYYY-MM-DD') enddate "
+				+ "from user_car_list u, agency a where id=? and a.agency_no=u.agency_no order by reg_date desc");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				UserCarListDataBean userCarList = new UserCarListDataBean();
+				userCarList.setCar_id(rs.getString("car_id"));
+				userCarList.setReg_date(rs.getString("reg_date"));
+				userCarList.setMyCarName(rs.getString("mycar_name"));
+				//state 프로퍼티에 지점명을 임시로 저장해둠
+				userCarList.setState(rs.getString("agency_name"));
+				userCarList.setStartDate(rs.getString("startdate"));
+				userCarList.setEndDate(rs.getString("enddate"));
+				
+				UserCarRegisterList.add(userCarList);
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+		return UserCarRegisterList;
+	}
+	
+	//해당 아이디로 user_car_list에 차량이 등록되어있는지 확인한다.
+	// 0 차량없음 , 1 차량있음
+	public int checkCarList(String id) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from user_car_list where id=?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = 1;
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(conn);
+		}
+		return result;
+	}
+	
 }

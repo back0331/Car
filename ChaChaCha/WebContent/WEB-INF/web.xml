@@ -45,7 +45,7 @@
 		<servlet-class>controller.ControllerUsingURI</servlet-class>
 		<init-param>
 			<param-name>propertyConfig</param-name>
-			<param-value>C:\Users\01sim\git\Car\ChaChaCha\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
+			<param-value>C:\workspace\ChaChaCha\WebContent\WEB-INF\commandHandlerURI.properties</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

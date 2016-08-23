@@ -87,6 +87,8 @@
 			alert("반납일자를 다시 확인해주세요.");
 			return false;
 		}
+		
+		document.bookForm1.submit();
 	}
 	
 	function selectDate(){
@@ -102,15 +104,40 @@
 		}
 	}
 </script>
+<style>
+	@font-face{
+		font-family: 'NanumSquareR';
+		src:url('../decorators/font/NanumSquareR.ttf');
+	}
+	@font-face{
+		font-family: 'NanumSquareB';
+		src:url('../decorators/font/NanumSquareB.ttf');
+	}
+	
+	form {font-family: 'NanumSquareR' !important;}
+	section {margin-top:15px;margin-bottom:30px;height:900px;}
+	div#sec {width:1000px;margin:auto;margin-bottom: 30px;}
+	div#map{width:1000px;height:400px;}
+	div#table {margin-top:30px; border-top: 2px solid #7F7A7A;}
+	table input {font-size: 18px;}
+	table th {height: 80px; background-color: #F9F9F9;}
+	table th, table td {border-bottom: thin solid #C9C9C9;}
+	table tr td.input {padding-left: 30px;}
+/* 	table tr td div {text-align: center; background-color: #F9F9F9; padding:25px 20px;} */
+	div#next {width:100%;margin:auto;font-family: 'NanumSquareB' !important;text-align: right; margin-top:80px;margin-bottom: 80px;}
+	div#next a {border:1px solid gray;  border-radius:5px; color:gray;
+		text-decoration: none; padding:10px 24px;}
+</style>
 </head>
 <body>
-<div id="map" style="width:700px;height:400px;"></div>
-<form name="bookForm1" action="book2InputForm.do" onsubmit="return check();">
-	<div>
-	<table width="700" height="200" border="1" cellspacing="0">
+<div id="sec"><img src="../decorators/images/step1.png" width="1000px"/></div>
+<div id="map"></div>
+<div id="table">
+<form name="bookForm1" action="book2InputForm.do" method="post">
+	<table width="1000px" height="200" cellspacing="0" callpadding="0">
 		<tr>
-			<td>지점선택</td>
-			<td>
+			<th width="200">지점선택</th>
+			<td class="input">
 				<select id="agency" name="agency" onchange="mapChange()">
 					<option value="">선택해주세요</option>
 					<c:forEach var="agency" items="${agencyList}">
@@ -120,22 +147,23 @@
 			</td>
 		</tr>
 		<tr>
-			<td>대여일자</td>
-			<td>
+			<th>대여일자</th>
+			<td class="input">
 				<input size="30px" type="text" class="testDatepicker" name="rent_date" id="rent_date" onchange="selectDate()" readonly>
 			</td>
 		</tr>
 		<tr>
-			<td>반납일자</td>
-			<td>
+			<th>반납일자</th>
+			<td class="input">
 				<input size="30px" type="text" class="testDatepicker" name="return_date" id="return_date" onchange="selectDate()" readonly>
 			</td>
 		</tr>
 	</table>
-	</div>
-	<div style="text-align:center;">
-	<input type="submit" value="다음"/>
-	</div>
 </form>
+</div>
+<div id="next">
+<a href="#" onclick="check();return false;">다음</a>
+</div>
+
 </body>
 </html> 

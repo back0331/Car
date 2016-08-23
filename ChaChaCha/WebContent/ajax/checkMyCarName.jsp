@@ -1,12 +1,10 @@
 <%@page import="bean.MyCarRegisterDataBean"%>
 <%@page import="bean.MyCarRegisterDBBean"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <%
 	request.setCharacterEncoding("utf-8");
-	/* String id = (String)request.getSession().getAttribute("userId"); */
-	String id = "test";
+	String id = (String)request.getSession().getAttribute("userId"); 
+	//String id = "test";
 	String mycar_name = request.getParameter("mycar_name");
 	String result = "";
 	

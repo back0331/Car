@@ -4,11 +4,7 @@
 		<pattern>/main/*</pattern>
 	</decorator>
 	<decorator page="MainMenu.jsp" name="main">
-		<pattern>/logon/loginForm.jsp</pattern>
 		<pattern>/logon/createUserForm.jsp</pattern>
-		<pattern>/logon/searchPw.jsp</pattern>
-		<pattern>/logon/searchPw.do</pattern>
-		<pattern>/logon/createUserForm.do</pattern>
 	</decorator>
 	<decorator page="MainMenu_RealTimeReservation.jsp" name="main_realTimeReservation">
 		<pattern>/realTimeReservation/*</pattern>
